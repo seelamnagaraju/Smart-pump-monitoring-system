@@ -294,8 +294,6 @@ int main(void)
 		//Call Ready
 		//bn GPRS_Begin();
 		//bn GPRS_Connect();
-
-
 		//GSM_Send_Msg("9059911555","hitestsms");
 		//HAL_Delay(500);
 
@@ -303,44 +301,6 @@ int main(void)
 		//HAL_Delay(10000);
 		//HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_RESET);
 		//HAL_Delay(10000);
-
-		//for (int loop = 0; loop <= 8; loop += 2)
-		//{
-		//	STAT_IND |= (0x01 << loop);  // to set bit position 1
-		//						/* store the value in EEPROM*/
-		//				
-		//	//local_buff[1] = STAT_IND;
-		//	sprintf(local_buff,"$%d!",STAT_IND);
-		//	HAL_UART_Transmit(&huart4,(uint8_t *)local_buff,sizeof(local_buff),10);
-		//	
-		//	HAL_Delay(10000);
-		//}
-
-		//strcpy((char *)eeprom_wr_buf,"HI"); 
-		//	//............................................................
-		//	at24_WriteBytes(&hi2c1, 0xA0, 0, eeprom_wr_buf,2);//EEPROM_WORD_SIZE
-		//  at24_ReadBytes(&hi2c1, 0xA0, 0, eeprom_rd_buf, 2); //EEPROM_WORD_SIZE
-		//	
-		//	strcpy((char *)eeprom_wr_buf,"HI1234"); 
-		//	at24_WriteBytes(&hi2c1, 0xA0, 8, eeprom_wr_buf,EEPROM_WORD_SIZE);
-		//  at24_ReadBytes(&hi2c1, 0xA0, 8, eeprom_rd_buf, EEPROM_WORD_SIZE);
-		//	strcpy((char *)eeprom_wr_buf,"HI1234asd6"); 
-		//	at24_WriteBytes(&hi2c1, 0xA0, 16, eeprom_wr_buf,10);
-		//  at24_ReadBytes(&hi2c1, 0xA0, 16, eeprom_rd_buf, 10);
-
-
-		//............................................................
-		//	flash_id = sFLASH_ReadID();/* Get SPI Flash ID */
-		//	
-		//	/* Perform a write in the Flash followed by a read of the written data */
-		//  /* Erase SPI FLASH Sector to write on */
-		//	sFLASH_EraseSector(FLASH_SECTOR_TO_ERASE);
-		//	
-		//	 /* Write Tx_Buffer data to SPI FLASH memory */
-		//   sFLASH_WriteBuffer(flash_wr_buf, FLASH_WRITE_ADDRESS, F_PAGE_SIZE);
-
-		//    /* Read data from SPI FLASH memory */
-		//   sFLASH_ReadBuffer(flash_rd_buf, FLASH_READ_ADDRESS, F_PAGE_SIZE);
 		//............................................................
 		get_var_from_eeprom();
 		get_sch_time_from_eeprom();
@@ -350,30 +310,12 @@ int main(void)
 		GSM_Engine_RESET();
 		//set_rtc(12,30,45,11,04,18); //set RTC time
 
-		//	SCH1_START_HH = 2;
-		//	sprintf((char *)eeprom_wr_buf,"%02d",SCH1_START_HH);
-		//	at24_WriteBytes(&hi2c1, 0xA0,EEPROM_SCH1_ADDR, eeprom_wr_buf,2);
-		//	
-		//	SCH1_START_MM = 5;
-		//	sprintf((char *)eeprom_wr_buf,"%02d",SCH1_START_MM);
-		//	at24_WriteBytes(&hi2c1, 0xA0,EEPROM_SCH1_ADDR + 2, eeprom_wr_buf,2);
-		//	SCH1_STOP_HH  = 8;
-		//	sprintf((char *)eeprom_wr_buf,"%02d",SCH1_STOP_HH);
-		//	at24_WriteBytes(&hi2c1, 0xA0,EEPROM_SCH1_ADDR + 4, eeprom_wr_buf,2);
-		//	SCH1_STOP_MM  = 3;
-		//	sprintf((char *)eeprom_wr_buf,"%02d",SCH1_STOP_MM);
-		//	at24_WriteBytes(&hi2c1, 0xA0,EEPROM_SCH1_ADDR + 6, eeprom_wr_buf,2);
-
-
-
 		//sprintf((char *)eeprom_wr_buf,"%2d%2d%2d%2d",SCH1_START_HH,SCH1_START_MM,SCH1_STOP_HH,SCH1_STOP_MM);
 		//at24_WriteBytes(&hi2c1, 0xA0,EEPROM_SCH1_ADDR, eeprom_wr_buf,EEPROM_SCH_TIME_SIZE);
 
-
-
-		/* Infinite loop */
-		while (1)
-		{	               
+	/* Infinite loop */
+	while (1)
+	{	               
             //-----------------------------------------------------------------
             //		Handle 5mS Tick events
             //-----------------------------------------------------------------
@@ -726,110 +668,8 @@ int main(void)
                 sprintf(disp_tx_buff,"#%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.2f,%1.3f,%1.3f!\n",parameter_value[0],parameter_value[1],parameter_value[2],parameter_value[3],parameter_value[4],parameter_value[5],parameter_value[6],parameter_value[7],parameter_value[8],parameter_value[9],parameter_value[10],parameter_value[11],parameter_value[12],parameter_value[13]);		 
                 HAL_UART_Transmit(&huart5,(uint8_t *)disp_tx_buff,strlen(disp_tx_buff),20);
             #endif
-			//........................OVER and UNDER VOLTAGE conditions........................
-/*			//if(!Status_Flag->over_voltage_alert && ((cal_val_buff[0] >= (OVER_VOLTAGE - 2)) || (cal_val_buff[1] >= (OVER_VOLTAGE - 2)) || (cal_val_buff[2] >= (OVER_VOLTAGE - 2)))){
-			if(!Status_Flag->over_voltage_alert && (cal_val_buff[3] >= (OVER_VOLTAGE - 17))){	// 477 - 17 = 460 for alert 
-                    Status_Flag->over_voltage_alert = SET;	
-                    sprintf(send_sms_buff,"over voltage alert");					
-                    send_msg_to_users(send_sms_buff);
-			}
+	  //........................OVER and UNDER VOLTAGE conditions........................
 	
-	
-			//if(!Status_Flag->over_voltage && ((cal_val_buff[0] >= OVER_VOLTAGE) || (cal_val_buff[1] >= OVER_VOLTAGE) || (cal_val_buff[2] >= OVER_VOLTAGE))){
-			if(!Status_Flag->over_voltage && (cal_val_buff[3] >= OVER_VOLTAGE)){
-                    Status_Flag->over_voltage = SET;
-                    Status_Flag->over_voltage_off = SET;
-                    sprintf(send_sms_buff,"over voltage cutoff");					
-                    send_msg_to_users(send_sms_buff);						
-			}
-            else if(Status_Flag->over_voltage && (cal_val_buff[3] >= OVER_VOLTAGE - 17)){
-				// nothing to do, same state for this condition  			
-			}
-			else if(Status_Flag->over_voltage && (cal_val_buff[3] <= OVER_VOLTAGE - 17)){
-					Status_Flag->over_voltage = CLEAR;
-					Status_Flag->over_voltage_alert = CLEAR;
-			}
-				
-			//if(!Status_Flag->under_voltage_alert && ((cal_val_buff[0] <= (UNDER_VOLTAGE + 2)) || (cal_val_buff[1] <= (UNDER_VOLTAGE + 2)) || (cal_val_buff[2] <= (UNDER_VOLTAGE + 2)))){
-			if(!Status_Flag->under_voltage_alert && (cal_val_buff[3] <= (UNDER_VOLTAGE + 17))){
-					Status_Flag->under_voltage_alert = SET;
-                    sprintf(send_sms_buff,"under voltage alert");					
-                    send_msg_to_users(send_sms_buff);
-			}
-			
-			//if(!Status_Flag->under_voltage && ((cal_val_buff[0] <= UNDER_VOLTAGE) || (cal_val_buff[1] <= UNDER_VOLTAGE) || (cal_val_buff[2] <= UNDER_VOLTAGE))){
-			if(!Status_Flag->under_voltage && (cal_val_buff[3] <= UNDER_VOLTAGE)){
-					Status_Flag->under_voltage = SET;
-					Status_Flag->under_voltage_off = SET;	
-					sprintf(send_sms_buff,"under voltage cutoff");					
-					send_msg_to_users(send_sms_buff);	
-			}
-			else if(Status_Flag->under_voltage && (cal_val_buff[3] <= UNDER_VOLTAGE + 17)){
-                    // nothing to do, same state for this condition 
-			}
-			else if(Status_Flag->under_voltage && (cal_val_buff[3] >= UNDER_VOLTAGE + 17)){
-					Status_Flag->under_voltage = CLEAR;
-					Status_Flag->under_voltage_alert = CLEAR;
-			}
-			//........................OVER and UNDER LOAD conditions........................
-			//if(!Status_Flag->over_load_alert && ((cal_val_buff[4] >= OVER_LOAD) || (cal_val_buff[5] >= OVER_LOAD) || (cal_val_buff[6] >= OVER_LOAD))){
-			if(!Status_Flag->over_load_alert && (cal_val_buff[7] >= OVER_LOAD)){
-                    Status_Flag->over_load_alert = SET;	
-                    sprintf(send_sms_buff,"over load alert");					
-                    send_msg_to_users(send_sms_buff);
-			}
-			else{
-					Status_Flag->over_load_alert = CLEAR;
-			}		
-			//if(!Status_Flag->over_load && ((cal_val_buff[4] >= THERMAL_OVERLOAD) || (cal_val_buff[5] >= THERMAL_OVERLOAD) || (cal_val_buff[6] >= THERMAL_OVERLOAD))){
-			if(!Status_Flag->over_load && (cal_val_buff[7] >= THERMAL_OVERLOAD)){
-                    Status_Flag->over_load = SET;
-                    Status_Flag->over_load_off = SET;
-			}
-			else if(Status_Flag->over_load && (cal_val_buff[7] >= OVER_LOAD)){
-                    // nothing to do, same state for this condition 
-			}
-			else if(Status_Flag->over_load && (cal_val_buff[7] <= OVER_LOAD)){				
-                    Status_Flag->over_load = CLEAR;						
-			}		
-			//if(!Status_Flag->under_load_alert && ((cal_val_buff[4] <= UNDER_LOAD) || (cal_val_buff[5] <= UNDER_LOAD) || (cal_val_buff[6] <= UNDER_LOAD))){
-			if(!Status_Flag->under_load_alert && (cal_val_buff[7] <= UNDER_LOAD + 5)){		
-                    Status_Flag->under_load_alert = SET;				
-                    sprintf(send_sms_buff,"under load alert");					
-                    send_msg_to_users(send_sms_buff);
-			}		
-			if(!Status_Flag->under_load && (cal_val_buff[7] <= UNDER_LOAD)){
-                    Status_Flag->under_load = SET;
-                    Status_Flag->under_load_off = SET;
-			}
-			else if(Status_Flag->under_load && (cal_val_buff[7] <= UNDER_LOAD + 5)){
-				// nothing to do, same state for this condition
-			}
-			else if(Status_Flag->under_load && (cal_val_buff[7] >= UNDER_LOAD + 5)){
-                    Status_Flag->under_load = CLEAR;
-                    Status_Flag->under_load_alert = CLEAR;
-			}
-			if((cal_val_buff[7] >= LOCKED_ROTOR)){
-				// send locked motor fault indicaion to display board
-			    // fail indication
-			}		
-			check_current_unbalance();
-			check_voltage_unbalance();
-			
-			if(cal_val_buff[16] >= OVER_FREQ){
-				// send indication to display board
-			}
-			else if(cal_val_buff[16] <= UNDER_FREQ){
-				// send indication to display board	
-			}		
-			if(!(STAT_IND & 0x01)) { // if motor is off 
-					earth_fault();
-            }
-			if(!Status_Flag->no_of_ons_exceded && (on_counter >= MAX_NO_ONS)){
-				Status_Flag->no_of_ons_exceded = SET;
-				//Status_Flag->on_reenable = SET;		
-			}
-*/			
             //.............................................................................. 			 
 		    if(Status_Flag->get_status){
                 char mode_type[6];				 
@@ -868,7 +708,7 @@ int main(void)
                 send_msg_to_users(send_sms_buff);
             }
             continue;
-		}
+	}
         //......................................................
         if(Sched_Flag->sched4_100ms_tick) {
             Sched_Flag->sched4_100ms_tick = CLEAR;			
@@ -892,17 +732,7 @@ int main(void)
         if(Sched_Flag->sched5_100ms_tick)  { //For RTC and Schedulers
        
             Sched_Flag->sched5_100ms_tick = CLEAR;
-            //  HAL_GPIO_TogglePin(CPU_LED_GPIO_Port, CPU_LED_Pin); // cpu led toggle for every 100ms 
-            //.............................................
-            //			 if(rtc_counter++ >= 10) // for every 1 sec, system rtc will read and compare with schedular logics 
-            //			 {	
-            //					rtc_counter = 0;
-            //					//get RTC time
-            //					HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
-            //					HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
-            //				 
-            //			 }
-            //..............................................
+        
             if(sys_hlt_counter++ >= 50) { // for every 5 sec
                 sys_hlt_counter = 0;
                 // add all system helth conditions in this if()
@@ -1017,7 +847,6 @@ int main(void)
 */
 void SystemClock_Config(void)
 {
-
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -1100,13 +929,11 @@ static void MX_I2C1_Init(void)
   }
 }
 
-
 //----------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 /* RTC init function */
 static void MX_RTC_Init(void)
 {
-
     /**Initialize RTC Only 
     */
   hrtc.Instance = RTC;
@@ -1898,4 +1725,4 @@ void assert_failed(uint8_t* file, uint32_t line)
   * @}
 */ 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/*********************************END OF FILE**********************************************/
